@@ -15,32 +15,38 @@ class BasePathTest extends \PHPUnit_Framework_TestCase
             [
                 'project-name/public/',
                 'http://example.com/project-name/public',
-                'http://example.com/',
+                '/',
                 'http://example.com/project-name/public/',
             ],
             [
                 '/other/path',
                 'http://example.com/project-name/public',
-                'http://example.com/project-name/public',
+                '/project-name/public',
                 'http://example.com/other/path/project-name/public',
             ],
             [
                 '/project-name',
                 'http://example.com/project-name/public',
-                'http://example.com/public',
+                '/public',
                 'http://example.com/project-name/public',
             ],
             [
                 '',
                 'http://example.com/foo',
-                'http://example.com/foo',
+                '/foo',
                 'http://example.com/foo',
             ],
             [
                 '',
                 'http://example.com',
+                '/',
                 'http://example.com/',
-                'http://example.com/',
+            ],
+            [
+                '/',
+                '/hello',
+                '/hello',
+                '/hello',
             ],
         ];
     }
@@ -57,7 +63,7 @@ class BasePathTest extends \PHPUnit_Framework_TestCase
 
             function ($request) {
                 $response = new Response();
-                $response->getBody()->write((string) $request->getUri());
+                $response->getBody()->write((string) $request->getUri()->getPath());
 
                 return $response->withHeader('Location', (string) $request->getUri());
             },

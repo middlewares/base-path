@@ -88,7 +88,11 @@ class BasePath implements ServerMiddlewareInterface
             $path = substr($path, strlen($this->basePath)) ?: '';
         }
 
-        return $path === '' ? '/' : $path;
+        if (substr($path, 0, 1) !== '/') {
+            return '/'.$path;
+        }
+
+        return $path;
     }
 
     /**
