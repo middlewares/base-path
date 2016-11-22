@@ -3,9 +3,10 @@
 namespace Middlewares\Tests;
 
 use Middlewares\BasePath;
+use Middlewares\Utils\Dispatcher;
+use Middlewares\Utils\CallableMiddleware;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Response;
-use mindplay\middleman\Dispatcher;
 
 class BasePathTest extends \PHPUnit_Framework_TestCase
 {
@@ -61,12 +62,12 @@ class BasePathTest extends \PHPUnit_Framework_TestCase
         $response = (new Dispatcher([
             (new BasePath($basePath))->fixLocation(),
 
-            function ($request) {
+            new CallableMiddleware(function ($request) {
                 $response = new Response();
                 $response->getBody()->write((string) $request->getUri()->getPath());
 
                 return $response->withHeader('Location', (string) $request->getUri());
-            },
+            }),
         ]))->dispatch($request);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
