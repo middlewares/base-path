@@ -57,7 +57,7 @@ class BasePathTest extends \PHPUnit_Framework_TestCase
     {
         $request = Factory::createServerRequest([], 'GET', $uri);
 
-        $response = (new Dispatcher([
+        $response = Dispatcher::run([
             (new BasePath($basePath))->fixLocation(),
 
             function ($request) {
@@ -66,7 +66,7 @@ class BasePathTest extends \PHPUnit_Framework_TestCase
                 return Factory::createResponse()
                     ->withHeader('Location', (string) $request->getUri());
             },
-        ]))->dispatch($request);
+        ], $request);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertEquals($result, (string) $response->getBody());
