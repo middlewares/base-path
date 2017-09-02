@@ -2,10 +2,10 @@
 
 namespace Middlewares\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Middlewares\BasePath;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
+use PHPUnit\Framework\TestCase;
 
 class BasePathTest extends TestCase
 {
@@ -53,6 +53,10 @@ class BasePathTest extends TestCase
 
     /**
      * @dataProvider pathProvider
+     * @param mixed $basePath
+     * @param mixed $uri
+     * @param mixed $result
+     * @param mixed $location
      */
     public function testBasePath($basePath, $uri, $result, $location)
     {
