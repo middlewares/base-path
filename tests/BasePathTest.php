@@ -2,11 +2,12 @@
 
 namespace Middlewares\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Middlewares\BasePath;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
 
-class BasePathTest extends \PHPUnit_Framework_TestCase
+class BasePathTest extends TestCase
 {
     public function pathProvider()
     {
