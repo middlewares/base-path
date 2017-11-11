@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares;
 
@@ -21,10 +22,8 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Configure the base path of the request.
-     *
-     * @param string $basePath
      */
-    public function __construct($basePath)
+    public function __construct(string $basePath)
     {
         $this->basePath = rtrim((string) $basePath, '/');
 
@@ -35,12 +34,8 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Whether fix the Location header in the response if exists.
-     *
-     * @param bool $fixLocation
-     *
-     * @return self
      */
-    public function fixLocation($fixLocation = true)
+    public function fixLocation(bool $fixLocation = true): self
     {
         $this->fixLocation = (bool) $fixLocation;
 
@@ -49,13 +44,8 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Process a server request and return a response.
-     *
-     * @param ServerRequestInterface  $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $uri = $request->getUri();
         $request = $request->withUri($uri->withPath($this->removeBasePath($uri->getPath())));
@@ -77,12 +67,8 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Removes the basepath from a path.
-     *
-     * @param string $path
-     *
-     * @return string
      */
-    private function removeBasePath($path)
+    private function removeBasePath(string $path): string
     {
         if (strpos($path, $this->basePath) === 0) {
             $path = substr($path, strlen($this->basePath)) ?: '';
@@ -97,12 +83,8 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Adds the basepath to a path.
-     *
-     * @param string $path
-     *
-     * @return string
      */
-    private function addBasePath($path)
+    private function addBasePath(string $path): string
     {
         if (strpos($path, $this->basePath) === 0) {
             return $path;
