@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
@@ -46,30 +47,30 @@ class BasePathTest extends TestCase
                 '/',
                 '/hello',
                 '/hello',
-                '/hello',
             ],
         ];
     }
 
     /**
      * @dataProvider pathProvider
-     * @param mixed $basePath
-     * @param mixed $uri
-     * @param mixed $result
-     * @param mixed $location
      */
-    public function testBasePath($basePath, $uri, $result, $location)
+    public function testBasePath(string $basePath, string $uri, string $result, string $location = null)
     {
         $request = Factory::createServerRequest([], 'GET', $uri);
 
         $response = Dispatcher::run([
             (new BasePath($basePath))->fixLocation(),
 
-            function ($request) {
+            function ($request) use ($location) {
                 echo $request->getUri()->getPath();
 
-                return Factory::createResponse()
-                    ->withHeader('Location', (string) $request->getUri());
+                $response = Factory::createResponse();
+
+                if ($location) {
+                    return $response->withHeader('Location', (string) $request->getUri());
+                }
+
+                return $response;
             },
         ], $request);
 
