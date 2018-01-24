@@ -25,7 +25,7 @@ class BasePath implements MiddlewareInterface
      */
     public function __construct(string $basePath)
     {
-        $this->basePath = rtrim((string) $basePath, '/');
+        $this->basePath = rtrim($basePath, '/');
 
         if (substr($this->basePath, 0, 1) !== '/') {
             $this->basePath = '/'.$this->basePath;
@@ -37,7 +37,7 @@ class BasePath implements MiddlewareInterface
      */
     public function fixLocation(bool $fixLocation = true): self
     {
-        $this->fixLocation = (bool) $fixLocation;
+        $this->fixLocation = $fixLocation;
 
         return $this;
     }

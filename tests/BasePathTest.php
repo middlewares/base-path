@@ -74,7 +74,6 @@ class BasePathTest extends TestCase
             },
         ], $request);
 
-        $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertEquals($result, (string) $response->getBody());
         $this->assertEquals($location, $response->getHeaderLine('Location'));
     }
