@@ -53,12 +53,12 @@ class BasePath implements MiddlewareInterface
         $response = $handler->handle($request);
 
         if ($this->fixLocation && $response->hasHeader('Location')) {
-            $location = Utils\Factory::createUri($response->getHeaderLine('Location'));
+            $location = parse_url($response->getHeaderLine('Location'));
 
-            if ($location->getHost() === '' || $location->getHost() === $uri->getHost()) {
-                $location = $location->withPath($this->addBasePath($location->getPath()));
+            if (empty($location['host']) || $location['host'] === $uri->getHost()) {
+                $location['path'] = $this->addBasePath($location['path']);
 
-                return $response->withHeader('Location', (string) $location);
+                return $response->withHeader('Location', self::unParseUrl($location));
             }
         }
 
@@ -91,5 +91,20 @@ class BasePath implements MiddlewareInterface
         }
 
         return str_replace('//', '/', $this->basePath.'/'.$path);
+    }
+
+    private function unParseUrl(array $url)
+    {
+        $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
+        $host = isset($url['host']) ? $url['host'] : '';
+        $port = isset($url['port']) ? ':' . $url['port'] : '';
+        $user = isset($url['user']) ? $url['user'] : '';
+        $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
+        $pass = ($user || $pass) ? "$pass@" : '';
+        $path = isset($url['path']) ? $url['path'] : '';
+        $query = isset($url['query']) ? '?' . $url['query'] : '';
+        $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
+
+        return "{$scheme}{$user}{$pass}{$host}{$port}{$path}{$query}{$fragment}";
     }
 }

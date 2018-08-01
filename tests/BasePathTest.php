@@ -20,6 +20,12 @@ class BasePathTest extends TestCase
                 'http://example.com/project-name/public/',
             ],
             [
+                'project-name/public/',
+                '/project-name/public',
+                '/',
+                '/project-name/public/',
+            ],
+            [
                 '/other/path',
                 'http://example.com/project-name/public',
                 '/project-name/public',
@@ -56,7 +62,7 @@ class BasePathTest extends TestCase
      */
     public function testBasePath(string $basePath, string $uri, string $result, string $location = null)
     {
-        $request = Factory::createServerRequest([], 'GET', $uri);
+        $request = Factory::createServerRequest('GET', $uri);
 
         $response = Dispatcher::run([
             (new BasePath($basePath))->fixLocation(),
