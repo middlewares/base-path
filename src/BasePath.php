@@ -93,7 +93,10 @@ class BasePath implements MiddlewareInterface
         return str_replace('//', '/', $this->basePath.'/'.$path);
     }
 
-    private function unParseUrl(array $url)
+    /**
+     * Stringify a url parsed with parse_url()
+     */
+    private function unParseUrl(array $url): string
     {
         $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
         $host = isset($url['host']) ? $url['host'] : '';
