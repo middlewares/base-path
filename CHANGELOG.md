@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.0.0] - Unreleased
+## [2.0.0] - 2019-11-30
 ### Removed
 - Support for PHP 7.0 and 7.1
 
@@ -61,7 +61,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0 - 2016-09-30
 First version
 
-[2.0.0]: https://github.com/middlewares/base-path/compare/v1.1.0...HEAD
+[2.0.0]: https://github.com/middlewares/base-path/compare/v1.1.0...v2.0.0
 [1.1.0]: https://github.com/middlewares/base-path/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/middlewares/base-path/compare/v0.5.0...v1.0.0
 [0.5.0]: https://github.com/middlewares/base-path/compare/v0.4.0...v0.5.0
