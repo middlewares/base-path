@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 - Support for PHP 7.0 and 7.1
 
+### Fixed
+- Improved code quality
+
 ## [1.1.0] - 2018-08-04
 ### Added
 - PSR-17 support

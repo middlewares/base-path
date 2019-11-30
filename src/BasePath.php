@@ -52,9 +52,11 @@ class BasePath implements MiddlewareInterface
 
         $response = $handler->handle($request);
 
-        if ($this->fixLocation && $response->hasHeader('Location')) {
-            $location = parse_url($response->getHeaderLine('Location'));
-
+        if (
+            $this->fixLocation
+         && $response->hasHeader('Location')
+         && $location = parse_url($response->getHeaderLine('Location'))
+         ) {
             if (empty($location['host']) || $location['host'] === $uri->getHost()) {
                 $location['path'] = $this->addBasePath($location['path']);
 
