@@ -98,15 +98,15 @@ class BasePath implements MiddlewareInterface
      */
     private function unParseUrl(array $url): string
     {
-        $scheme = isset($url['scheme']) ? $url['scheme'] . '://' : '';
-        $host = isset($url['host']) ? $url['host'] : '';
-        $port = isset($url['port']) ? ':' . $url['port'] : '';
-        $user = isset($url['user']) ? $url['user'] : '';
-        $pass = isset($url['pass']) ? ':' . $url['pass'] : '';
-        $pass = ($user || $pass) ? "$pass@" : '';
-        $path = isset($url['path']) ? $url['path'] : '';
-        $query = isset($url['query']) ? '?' . $url['query'] : '';
-        $fragment = isset($url['fragment']) ? '#' . $url['fragment'] : '';
+        $scheme = isset($url['scheme']) ? sprintf('%s://', $url['scheme']) : '';
+        $host = $url['host'] ?? '';
+        $port = isset($url['port']) ? sprintf(':%s', $url['port']) : '';
+        $user = $url['user'] ?? '';
+        $pass = isset($url['pass']) ? sprintf(':%s', $url['pass']) : '';
+        $pass = ($user || $pass) ? sprintf('%s@', $pass) : '';
+        $path = $url['path'] ?? '';
+        $query = isset($url['query']) ? sprintf('?%s', $url['query']) : '';
+        $fragment = isset($url['fragment']) ? sprintf('#%s', $url['fragment']) : '';
 
         return "{$scheme}{$user}{$pass}{$host}{$port}{$path}{$query}{$fragment}";
     }
