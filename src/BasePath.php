@@ -11,6 +11,11 @@ use Psr\Http\Server\RequestHandlerInterface;
 class BasePath implements MiddlewareInterface
 {
     /**
+     * @var string The attribute name
+     */
+    private $attribute = 'full-uri';
+    
+    /**
      * @var string The path prefix to remove
      */
     private $basePath;
@@ -41,6 +46,16 @@ class BasePath implements MiddlewareInterface
 
         return $this;
     }
+    
+    /**
+     * Set the attribute name to store the full unaltered uri.
+     */
+    public function attribute(string $attribute): self
+    {
+        $this->attribute = $attribute;
+
+        return $this;
+    }
 
     /**
      * Process a server request and return a response.
@@ -50,7 +65,7 @@ class BasePath implements MiddlewareInterface
         $uri = $request->getUri();
         $request = $request->withUri($uri->withPath($this->removeBasePath($uri->getPath())));
 
-        $response = $handler->handle($request);
+        $response = $handler->handle($request->withAttribute($this->attribute, $uri));
 
         if ($this->fixLocation
          && $response->hasHeader('Location')
