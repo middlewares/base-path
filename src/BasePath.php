@@ -16,6 +16,11 @@ class BasePath implements MiddlewareInterface
     private $basePath;
 
     /**
+     * @var string The attribute name
+     */
+    private $attribute = null;
+
+    /**
      * @var bool Whether or not add the base path to the Location header if exists
      */
     private $fixLocation = false;
@@ -43,11 +48,26 @@ class BasePath implements MiddlewareInterface
     }
 
     /**
+     * Set the attribute name to store the pre base path uri.
+     */
+    public function attribute(string $attribute = null): self
+    {
+        $this->attribute = $attribute ?: "pre-basepath-path";
+
+        return $this;
+    }
+
+    /**
      * Process a server request and return a response.
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $uri = $request->getUri();
+
+        if ($this->attribute !== null) {
+            $request = $request->withAttribute($this->attribute, $uri->getPath());
+        }
+
         $request = $request->withUri($uri->withPath($this->removeBasePath($uri->getPath())));
 
         $response = $handler->handle($request);

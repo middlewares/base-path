@@ -47,6 +47,19 @@ $response = Dispatcher::run([
 echo $response->getHeader('Location'); // Returns /base/path/post/1
 ```
 
+### attribute
+
+Puts the original uri path into an attribute, ```pre-basepath-path``` by default. You can also pass a custom attribute name. For example:
+
+```php
+// Save the original uri with basepath in the default attribute "pre-basepath-path"
+$basepath = (new Middlewares\BasePath())->attribute();
+
+// Save the original uri with basepath in the custom attribute "before-basepath-uri"
+$basepath = (new Middlewares\BasePath())->attribute('before-basepath-uri');
+```
+
+
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.
