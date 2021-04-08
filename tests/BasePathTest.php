@@ -83,4 +83,63 @@ class BasePathTest extends TestCase
         $this->assertEquals($result, (string) $response->getBody());
         $this->assertEquals($location, $response->getHeaderLine('Location'));
     }
+
+    public function attributePathProvider()
+    {
+        return [
+            [
+                'project-name/public/',
+                'http://example.com/project-name/public',
+                '/project-name/public',
+            ],
+            [
+                'project-name/public/',
+                '/project-name/public',
+                '/project-name/public',
+            ],
+            [
+                '/other/path',
+                'http://example.com/project-name/public',
+                '/project-name/public',
+            ],
+            [
+                '/project-name',
+                'http://example.com/project-name/public',
+                '/project-name/public',
+            ],
+            [
+                '',
+                'http://example.com/foo',
+                '/foo',
+            ],
+            [
+                '',
+                'http://example.com',
+                '',
+            ],
+            [
+                '/',
+                '/hello',
+                '/hello',
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider attributePathProvider
+     */
+    public function testAttribute(string $basePath, string $uri, string $result)
+    {
+        $request = Factory::createServerRequest('GET', $uri);
+
+        $response = Dispatcher::run([
+            (new BasePath($basePath))->attribute('custom-attribute-name'),
+
+            function ($request) {
+                echo $request->getAttribute('custom-attribute-name');
+            },
+        ], $request);
+
+        $this->assertEquals($result, (string) $response->getBody());
+    }
 }
