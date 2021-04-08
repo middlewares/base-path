@@ -133,24 +133,6 @@ class BasePathTest extends TestCase
         $request = Factory::createServerRequest('GET', $uri);
 
         $response = Dispatcher::run([
-            (new BasePath($basePath))->attribute(),
-
-            function ($request) {
-                echo $request->getAttribute('pre-basepath-path');
-            },
-        ], $request);
-
-        $this->assertEquals($result, (string) $response->getBody());
-    }
-
-    /**
-     * @dataProvider attributePathProvider
-     */
-    public function testCustomAttribute(string $basePath, string $uri, string $result)
-    {
-        $request = Factory::createServerRequest('GET', $uri);
-
-        $response = Dispatcher::run([
             (new BasePath($basePath))->attribute('custom-attribute-name'),
 
             function ($request) {

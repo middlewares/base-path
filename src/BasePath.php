@@ -50,9 +50,9 @@ class BasePath implements MiddlewareInterface
     /**
      * Set the attribute name to store the pre base path uri.
      */
-    public function attribute(string $attribute = null): self
+    public function attribute(string $attribute): self
     {
-        $this->attribute = $attribute ?: "pre-basepath-path";
+        $this->attribute = $attribute;
 
         return $this;
     }
