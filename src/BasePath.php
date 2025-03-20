@@ -75,7 +75,7 @@ class BasePath implements MiddlewareInterface
         if ($this->fixLocation
          && $response->hasHeader('Location')
          && $location = parse_url($response->getHeaderLine('Location'))
-         ) {
+        ) {
             if (empty($location['host']) || $location['host'] === $uri->getHost()) {
                 $location['path'] = $this->addBasePath($location['path']);
 
@@ -116,6 +116,7 @@ class BasePath implements MiddlewareInterface
 
     /**
      * Stringify a url parsed with parse_url()
+     * @param array<string, int|string> $url
      */
     private function unParseUrl(array $url): string
     {
