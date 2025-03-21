@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.0] - 2025-03-21
+### Added
+- Support for PHP 8.4
+
 ## [2.1.0] - 2021-04-08
 ### Added
 - New option `attribute` to store the previous path in a request attribute [#2] [#3].
@@ -72,6 +76,7 @@ First version
 [#2]: https://github.com/middlewares/base-path/issues/2
 [#3]: https://github.com/middlewares/base-path/issues/3
 
+[2.2.0]: https://github.com/middlewares/base-path/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/middlewares/base-path/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/middlewares/base-path/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/middlewares/base-path/compare/v1.1.0...v2.0.0
