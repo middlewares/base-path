@@ -10,7 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 class BasePathTest extends TestCase
 {
-    public function pathProvider()
+    /**
+     * @return array<string[]>
+     */
+    public function pathProvider(): array
     {
         return [
             [
@@ -60,7 +63,7 @@ class BasePathTest extends TestCase
     /**
      * @dataProvider pathProvider
      */
-    public function testBasePath(string $basePath, string $uri, string $result, string $location = null)
+    public function testBasePath(string $basePath, string $uri, string $result, ?string $location = null): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
@@ -84,7 +87,10 @@ class BasePathTest extends TestCase
         $this->assertEquals($location, $response->getHeaderLine('Location'));
     }
 
-    public function attributePathProvider()
+    /**
+     * @return array<string[]>
+     */
+    public function attributePathProvider(): array
     {
         return [
             [
@@ -128,7 +134,7 @@ class BasePathTest extends TestCase
     /**
      * @dataProvider attributePathProvider
      */
-    public function testAttribute(string $basePath, string $uri, string $result)
+    public function testAttribute(string $basePath, string $uri, string $result): void
     {
         $request = Factory::createServerRequest('GET', $uri);
 
