@@ -27,7 +27,7 @@ Set the prefix to remove:
 
 ```php
 Dispatcher::run([
-	new Middlewares\BasePath('/base/path')
+    new Middlewares\BasePath('/base/path')
 ]);
 ```
 
